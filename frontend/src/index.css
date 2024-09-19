@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    @apply bg-neutral-900 font-poppins;;
+}
+
+.auth-input {
+    @apply w-full p-3 bg-neutral-900 rounded-md border border-gray-700 focus:outline-none focus:border-gray-500;
+    padding-left: 2.5rem;
+  }
+  
+
+.auth-btn{
+    @apply w-full bg-indigo-500 hover:bg-indigo-400 text-slate-100 font-semibold p-3 rounded-full;
+}
