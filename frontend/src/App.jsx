@@ -13,6 +13,9 @@ function App() {
     return <Loading />;
   }
 
+  // console.log(isAuth);
+  
+
   return (
     <BrowserRouter>
       <Routes>
@@ -22,14 +25,13 @@ function App() {
         />
         <Route
           path="/login"
-          // element={isAuth ? <Navigate to="/" /> : <Login />}
+          element={isAuth ? <Navigate to="/" /> : <Login />}
         />
         <Route
           path="/register"
-          // element={isAuth ? <Navigate to="/" /> : <Register />}
-          element = {<Register />}
+          element={isAuth ? <Navigate to="/" /> : <Register />}
         />
-        <Route path="*" element={<Navigate to="/" />} />
+        {/* <Route path="*" element={<Navigate to="/" />} /> */}
       </Routes>
     </BrowserRouter>
   );

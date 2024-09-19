@@ -4,6 +4,13 @@ import axios from "axios";
 
 const UserContext = createContext();
 
+const config = {
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
+
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState([]);
   const [isAuth, setIsAuth] = useState(false);
@@ -17,10 +24,12 @@ export const UserProvider = ({ children }) => {
         name,
         email,
         password,
-      });
+      }, config);
 
       toast.success(data.message);
       setUser(data.user);
+      // console.log(data);
+      
       setIsAuth(true);
       setBtnLoading(false);
       navigate("/");
@@ -38,7 +47,7 @@ export const UserProvider = ({ children }) => {
       const { data } = await axios.post("http://localhost:5000/api/user/login", {
         email,
         password,
-      });
+      }, config);
 
       toast.success(data.message);
       setUser(data.user);
@@ -55,10 +64,12 @@ export const UserProvider = ({ children }) => {
 
   async function fetchUser() {
     try {
-      const { data } = await axios.get("/api/user/me");
+      // console.log("hii")
+      const data= await axios.get("http://localhost:5000/api/user/me", config);
 
+      console.log(data)
       setUser(data);
-      setIsAuth(true);
+      setIsAuth(true)
       setLoading(false);
     } catch (error) {
       console.log(error);

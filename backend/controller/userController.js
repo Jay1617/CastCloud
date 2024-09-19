@@ -24,11 +24,15 @@ export const registerUser = TryCatch(async (req, res) => {
     password: hashPassword,
   });
 
-  generateToken(user._id, res);
-
-  res.status(201).json({
+  const token= generateToken(user._id, res);
+  console.log(token)
+ return res.cookie("token", token, {
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+  httpOnly: true,
+  sameSite: "strict",
+}).status(200).json({
     user,
-    message: "User Registered",
+    message: "User Ragisterd",
   });
 });
 
@@ -48,9 +52,13 @@ export const loginUser = TryCatch(async (req, res) => {
     return res.status(401).json({ message: "Password Doesn't match" });
   }
 
-  generateToken(user._id, res);
-
- return res.status(200).json({
+  const token= generateToken(user._id, res);
+  console.log(token)
+ return res.cookie("token", token, {
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+  httpOnly: true,
+  sameSite: "strict",
+}).status(200).json({
     user,
     message: "User LoggedIn",
   });
