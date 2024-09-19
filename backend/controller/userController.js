@@ -5,6 +5,9 @@ import generateToken from "../utils/generateToken.js";
 
 //Controller for Register User
 export const registerUser = TryCatch(async (req, res) => {
+
+  // console.log(" Api called");
+  
   const { name, email, password } = req.body;
 
   let user = await User.findOne({ email });
@@ -47,7 +50,7 @@ export const loginUser = TryCatch(async (req, res) => {
 
   generateToken(user._id, res);
 
-  res.status(200).json({
+ return res.status(200).json({
     user,
     message: "User LoggedIn",
   });
