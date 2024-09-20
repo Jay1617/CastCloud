@@ -30,9 +30,11 @@ app.use(
 );
 //importing routes
 import userRoutes from "./routes/userRoutes.js";
+import podcastRoutes from "./routes/podcastRoutes.js"
 
 //using  routes
 app.use("/api/user", userRoutes);
+app.use("/api/podcast", podcastRoutes);
 
 app.listen(port, (err) => {
   if (err) {

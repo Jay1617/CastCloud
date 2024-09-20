@@ -15,3 +15,20 @@ body{
 .auth-btn{
     @apply w-full bg-indigo-500 hover:bg-indigo-400 text-slate-100 font-semibold p-3 rounded-full;
 }
+
+.auth-btn-admin{
+  @apply w-full bg-white hover:bg-slate-100 text-black font-semibold p-3 rounded-full;
+}
+
+*::-webkit-scrollbar {
+    height: 0.5rem;
+    width: 0.1rem;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: #2e2d2b;
+  }

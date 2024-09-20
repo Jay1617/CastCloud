@@ -17,37 +17,60 @@ export const UserProvider = ({ children }) => {
   const [btnLoading, setBtnLoading] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  async function registerUser(name, email, password, navigate) {
+  async function registerUser(
+    name,
+    email,
+    password,
+    navigate,
+    fetchPodcasts,
+    fetchAlbums
+  ) {
     setBtnLoading(true);
     try {
-      const { data } = await axios.post("http://localhost:5000/api/user/register", {
-        name,
-        email,
-        password,
-      }, config);
+      const { data } = await axios.post(
+        "http://localhost:5000/api/user/register",
+        {
+          name,
+          email,
+          password,
+        },
+        config
+      );
 
       toast.success(data.message);
       setUser(data.user);
       // console.log(data);
-      
+
       setIsAuth(true);
       setBtnLoading(false);
       navigate("/");
     } catch (error) {
       console.log(error);
 
-      toast.error(error.response?.data?.message || error.message || "Registration failed");
+      toast.error(
+        error.response?.data?.message || error.message || "Registration failed"
+      );
       setBtnLoading(false);
     }
   }
 
-  async function loginUser(email, password, navigate) {
+  async function loginUser(
+    email,
+    password,
+    navigate,
+    fetchPodcasts,
+    fetchAlbums
+  ) {
     setBtnLoading(true);
     try {
-      const { data } = await axios.post("http://localhost:5000/api/user/login", {
-        email,
-        password,
-      }, config);
+      const { data } = await axios.post(
+        "http://localhost:5000/api/user/login",
+        {
+          email,
+          password,
+        },
+        config
+      );
 
       toast.success(data.message);
       setUser(data.user);
@@ -57,7 +80,9 @@ export const UserProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
 
-      toast.error(error.response?.data?.message || error.message || "Login failed");
+      toast.error(
+        error.response?.data?.message || error.message || "Login failed"
+      );
       setBtnLoading(false);
     }
   }
@@ -65,16 +90,32 @@ export const UserProvider = ({ children }) => {
   async function fetchUser() {
     try {
       // console.log("hii")
-      const data= await axios.get("http://localhost:5000/api/user/me", config);
+      const { data } = await axios.get(
+        "http://localhost:5000/api/user/me",
+        config
+      );
 
-      console.log(data)
+      console.log(data);
       setUser(data);
-      setIsAuth(true)
+      setIsAuth(true);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      // console.log("ddddddddddddd",error);
       setIsAuth(false);
       setLoading(false);
+    }
+  }
+
+  async function logoutUser() {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:5000/api/user/logout",
+        config
+      );
+
+      window.location.reload();
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 
@@ -83,7 +124,9 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ registerUser, user, isAuth, btnLoading, loading, loginUser }}>
+    <UserContext.Provider
+      value={{ registerUser, user, isAuth, btnLoading, loading, loginUser,logoutUser}}
+    >
       {children} <Toaster />
     </UserContext.Provider>
   );

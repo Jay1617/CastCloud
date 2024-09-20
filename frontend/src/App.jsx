@@ -5,6 +5,9 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import { UserData } from "./context/User";
 import Loading from "./components/Loading";
+import Admin from "./pages/Admin";
+import PlayList from "./pages/PlayList";
+import Search from "./pages/Search";
 
 function App() {
   const { loading, isAuth } = UserData();
@@ -14,7 +17,6 @@ function App() {
   }
 
   // console.log(isAuth);
-  
 
   return (
     <BrowserRouter>
@@ -22,6 +24,19 @@ function App() {
         <Route
           path="/"
           element={isAuth ? <Home /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/admin"
+          element={isAuth ? <Admin /> : <Navigate to="/login" />}
+        />
+
+        <Route
+          path="/search"
+          element={isAuth ? <Search /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/playlist"
+          element={isAuth ? <PlayList /> : <Navigate to="/login" />}
         />
         <Route
           path="/login"
