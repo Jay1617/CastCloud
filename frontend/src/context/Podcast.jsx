@@ -32,6 +32,9 @@ export const PodcastProvider = ({ children }) => {
     }
   }
 
+
+  const [podcast, setPodcast] = useState([]);
+
   async function fetchSinglePodcast() {
     if (selectedPodcast) {
       try {
@@ -101,6 +104,8 @@ export const PodcastProvider = ({ children }) => {
     }
   }
 
+  
+
   async function fetchAlbums() {
     try {
       const { data } = await axios.get("http://localhost:5000/api/podcast/album/all", config);
@@ -148,13 +153,13 @@ export const PodcastProvider = ({ children }) => {
   return (
     <PodcastContext.Provider value={{ 
       podcasts, 
-      albums, 
       addAlbum, 
+      loading, 
+      albums, 
       addPodcast, 
       addThumbnail, 
       deletePodcast, 
       fetchAlbumPodcast, 
-      loading, 
       podcastLoading, 
       isPlaying, 
       selectedPodcast, 
@@ -162,7 +167,12 @@ export const PodcastProvider = ({ children }) => {
       nextPodcast,
       prevPodcast,
       albumPodcast,
-      albumData
+      albumData,
+      fetchPodcast,
+      fetchAlbums,
+      fetchSinglePodcast,
+      setIsPlaying,
+      podcast
     }}>
       {children}
     </PodcastContext.Provider>

@@ -25,7 +25,7 @@ export const registerUser = TryCatch(async (req, res) => {
   });
 
   const token= generateToken(user._id, res);
-  console.log(token)
+  // console.log(token)
  return res.cookie("token", token, {
   maxAge: 7 * 24 * 60 * 60 * 1000,
   httpOnly: true,
@@ -53,7 +53,7 @@ export const loginUser = TryCatch(async (req, res) => {
   }
 
   const token= generateToken(user._id, res);
-  console.log(token)
+  // console.log(token)
  return res.cookie("token", token, {
   maxAge: 7 * 24 * 60 * 60 * 1000,
   httpOnly: true,
@@ -76,3 +76,28 @@ export const logoutUser = TryCatch(async (req, res) => {
   res.cookie("token", "", {maxAge: 0});
   res.status(200).json({ message: "User LoggedOut" });
 })
+
+//Controller for saving to playlist
+export const saveToPlaylist = TryCatch(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user.playlist.includes(req.params.id)) {
+    const index = user.playlist.indexOf(req.params.id);
+
+    user.playlist.splice(index, 1);
+
+    await user.save();
+
+    return res.json({
+      message: "Removed from playlist",
+    });
+  }
+
+  user.playlist.push(req.params.id);
+
+  await user.save();
+
+  return res.json({
+    message: "added to playlist",
+  });
+});

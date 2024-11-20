@@ -44,7 +44,7 @@ export const addPodcast = TryCatch(async (req, res) => {
       message: "You are not admin",
     });
 
-  const { title, description, singer, album } = req.body;
+  const { title, description, guest, album } = req.body;
 
   const file = req.file;
 

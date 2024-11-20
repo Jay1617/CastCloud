@@ -13,7 +13,6 @@ cloudinary.v2.config({
   api_secret: process.env.CLOUDINARY_CLIENT_SECRET,
 });
 
-
 const app = express();
 const port = process.env.PORT || 5000;
 

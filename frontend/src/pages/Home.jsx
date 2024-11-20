@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "../components/Layout";
 import { PodcastData } from "../context/Podcast";
 import AlbumItem from "../components/AlbumItem";
+import PodcastItem from "../components/PodcastItem";
 
 function Home() {
   const { podcasts, albums } = PodcastData();
@@ -26,7 +27,15 @@ function Home() {
       <div className="mb-4">
         <h1 className="my-5 font-bold text-2xl">Today's biggest hits</h1>
         <div className="flex overflow-auto">
-          {}
+        {podcasts.map((e, i) => (
+            <PodcastItem
+              key={i}
+              image={e.thumbnail.url}
+              name={e.title}
+              desc={e.description}
+              id={e._id}
+            />
+          ))}
         </div>
       </div>
     </Layout>

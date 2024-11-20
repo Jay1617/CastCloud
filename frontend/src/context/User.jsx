@@ -119,13 +119,30 @@ export const UserProvider = ({ children }) => {
     }
   }
 
+  async function addToPlaylist(id) {
+    try {
+      console.log(id);
+  
+      const { data } = await axios.post(
+        `http://localhost:5000/api/user/podcast/${id}`,
+        {},  
+        config 
+      );      
+  
+      toast.success(data.message);
+      fetchUser();  
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Error adding to playlist");
+    }
+  }
+  
   useEffect(() => {
     fetchUser();
   }, []);
 
   return (
     <UserContext.Provider
-      value={{ registerUser, user, isAuth, btnLoading, loading, loginUser,logoutUser}}
+      value={{ registerUser, user, isAuth, btnLoading, loading, loginUser,logoutUser, addToPlaylist}}
     >
       {children} <Toaster />
     </UserContext.Provider>
